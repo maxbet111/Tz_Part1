@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "cc49b40a-9f07-4bbc-be9e-76b49836f1d8",
+		"name": "apiGit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "test1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "09640b3f-f627-4d9e-afe1-e7eee6073c04",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.value).to.eql(100);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/users/6wl",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"6wl"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://api.github.com/users/6wl",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e5d747f5-0bc2-4bcc-972e-aa8f9943e378",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Body matches string\"] = responseBody.has(\"login\");",
+							"",
+							"tests[\"Body matches ID\"] = responseBody.has(\"id\");",
+							"",
+							"tests[\"Body matches Company\"] = responseBody.has(\"company\");",
+							"",
+							"tests[\"Body matches location\"] = responseBody.has(\"location\");",
+							"",
+							"tests[\"Body matches public_repos\"] = responseBody.has(\"public_repos\");",
+							"",
+							"tests[\"Body matches public_gists\"] = responseBody.has(\"public_gists\");",
+							"",
+							"tests[\"Body matches followers\"] = responseBody.has(\"followers\");",
+							"",
+							"tests[\"Body matches following\"] = responseBody.has(\"following\");",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"login name is \" + data.login] = data.login === \"6wl\";",
+							"tests[\"login name is \" + data.id] = data.id === 15330;",
+							"tests[\"login name is \" + data.company] = data.company === \"Amplience\";",
+							"tests[\"login name is \" + data.location] = data.location === \"London\";",
+							"tests[\"login name is \" + data.public_repos] = data.public_repos === 5;",
+							"tests[\"login name is \" + data.public_gists] = data.public_gists === 10;",
+							"tests[\"login name is \" + data.followers] = data.followers === 11;",
+							"tests[\"login name is \" + data.following] = data.following === 26;",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/users/6wl",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"6wl"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
