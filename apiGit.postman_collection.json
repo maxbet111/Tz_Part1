@@ -6,18 +6,93 @@
 	},
 	"item": [
 		{
-			"name": "test1",
+			"name": "add tests",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "09640b3f-f627-4d9e-afe1-e7eee6073c04",
+						"id": "28951c42-03d0-4de6-ae63-f6682212b357",
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Your test name\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.value).to.eql(100);",
-							"});"
+							"",
+							"",
+							" ",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Cache-Control\");",
+							"",
+							"tests[\"HEAD Has Cache-Control\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Cache-Control is public, max-age=60, s-maxage=60\"] = responseHeaders[\"Cache-Control\"].has(\"public, max-age=60, s-maxage=60\");",
+							"}",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//Check fields present in response ",
+							"tests[\"Body matches login\"] = responseBody.has(\"login\");",
+							"",
+							"tests[\"Body matches ID\"] = responseBody.has(\"id\");",
+							"",
+							"tests[\"Body matches Company\"] = responseBody.has(\"company\");",
+							"",
+							"tests[\"Body matches location\"] = responseBody.has(\"location\");",
+							"",
+							"tests[\"Body matches public_repos\"] = responseBody.has(\"public_repos\");",
+							"",
+							"tests[\"Body matches public_gists\"] = responseBody.has(\"public_gists\");",
+							"",
+							"tests[\"Body matches followers\"] = responseBody.has(\"followers\");",
+							"",
+							"tests[\"Body matches following\"] = responseBody.has(\"following\");",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"// Check fields equal their values",
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"login name is: \" + data.login] = data.login === \"6wl\";",
+							"",
+							"tests[\"id is: \" + data.id] = data.id === 15330;",
+							"",
+							"tests[\"company name is: \" + data.company] = data.company === \"Amplience\";",
+							"",
+							"tests[\"location is: \" + data.location] = data.location === \"London\";",
+							"",
+							"tests[\"public_repos is: \" + data.public_repos] = data.public_repos === 5;",
+							"",
+							"tests[\"public_gists is: \" + data.public_gists] = data.public_gists === 10;",
+							"",
+							"tests[\"followers is: \" + data.followers] = data.followers === 11;",
+							"",
+							"tests[\"following is: \" + data.following] = data.following === 26;",
+							"",
+							"// Тестируем статус ответа и формат",
+							"pm.test(\"Status is ok, response is json\", function () {",
+							"    pm.response.to.be.ok; // проверка статуса",
+							"    pm.response.to.be.json; // проверка формата",
+							"});",
+							"",
+							"try {",
+							"    // сохраняем userId из json ответа в переменную окружения",
+							"    pm.environment.set(\"userId\", pm.response.json().args.userId);",
+							"} catch(e) {",
+							"    // выводим исключение в консоль",
+							"    console.log(e);",
+							"}",
+							"",
+							"pm.test(\"Status is ok, response is json\", function () {",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
 						]
 					}
 				}
@@ -48,15 +123,26 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "e5d747f5-0bc2-4bcc-972e-aa8f9943e378",
+						"id": "b915d5e8-0cc8-4656-b3de-4559291ae60b",
 						"type": "text/javascript",
 						"exec": [
+							"",
+							"",
+							" ",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Cache-Control\");",
+							"",
+							"tests[\"HEAD Has Cache-Control\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Cache-Control is public, max-age=60, s-maxage=60\"] = responseHeaders[\"Cache-Control\"].has(\"public, max-age=60, s-maxage=60\");",
+							"}",
 							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"tests[\"Body matches string\"] = responseBody.has(\"login\");",
+							"//Check fields present in response ",
+							"tests[\"Body matches login\"] = responseBody.has(\"login\");",
 							"",
 							"tests[\"Body matches ID\"] = responseBody.has(\"id\");",
 							"",
@@ -76,18 +162,330 @@
 							"",
 							"",
 							"",
-							"",
+							"// Check fields equal their values",
 							"var data = JSON.parse(responseBody);",
-							"tests[\"login name is \" + data.login] = data.login === \"6wl\";",
-							"tests[\"login name is \" + data.id] = data.id === 15330;",
-							"tests[\"login name is \" + data.company] = data.company === \"Amplience\";",
-							"tests[\"login name is \" + data.location] = data.location === \"London\";",
-							"tests[\"login name is \" + data.public_repos] = data.public_repos === 5;",
-							"tests[\"login name is \" + data.public_gists] = data.public_gists === 10;",
-							"tests[\"login name is \" + data.followers] = data.followers === 11;",
-							"tests[\"login name is \" + data.following] = data.following === 26;",
+							"",
+							"tests[\"login name is: \" + data.login] = data.login === \"6wl\";",
+							"",
+							"tests[\"id is: \" + data.id] = data.id === 15330;",
+							"",
+							"tests[\"company name is: \" + data.company] = data.company === \"Amplience\";",
+							"",
+							"tests[\"location is: \" + data.location] = data.location === \"London\";",
+							"",
+							"tests[\"public_repos is: \" + data.public_repos] = data.public_repos === 5;",
+							"",
+							"tests[\"public_gists is: \" + data.public_gists] = data.public_gists === 10;",
+							"",
+							"tests[\"followers is: \" + data.followers] = data.followers === 11;",
+							"",
+							"tests[\"following is: \" + data.following] = data.following === 26;",
 							"",
 							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "https://api.github.com/users/6wl",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"6wl"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "https://api.github.com/users/6wl",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "https://api.github.com/users/6wl",
+							"protocol": "https",
+							"host": [
+								"api",
+								"github",
+								"com"
+							],
+							"path": [
+								"users",
+								"6wl"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"name": "Access-Control-Allow-Origin",
+							"description": "Specifies a URI that may access the resource. For requests without credentials, the server may specify '*' as a wildcard, thereby allowing any origin to access the resource."
+						},
+						{
+							"key": "Access-Control-Expose-Headers",
+							"value": "ETag, Link, Retry-After, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset, X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval",
+							"name": "Access-Control-Expose-Headers",
+							"description": "Lets a server whitelist headers that browsers are allowed to access."
+						},
+						{
+							"key": "Cache-Control",
+							"value": "public, max-age=60, s-maxage=60",
+							"name": "Cache-Control",
+							"description": "Tells all caching mechanisms from server to client whether they may cache this object. It is measured in seconds"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip",
+							"name": "Content-Encoding",
+							"description": "The type of encoding used on the data."
+						},
+						{
+							"key": "Content-Security-Policy",
+							"value": "default-src 'none'",
+							"name": "Content-Security-Policy",
+							"description": "Custom header"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 15 Aug 2018 10:01:36 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"43e3d5f17c4ff899b20514ff8887a77e\"",
+							"name": "ETag",
+							"description": "An identifier for a specific version of a resource, often a message digest"
+						},
+						{
+							"key": "Last-Modified",
+							"value": "Sat, 09 Jun 2018 19:18:37 GMT",
+							"name": "Last-Modified",
+							"description": "The last modified date for the requested object, in RFC 2822 format"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "origin-when-cross-origin, strict-origin-when-cross-origin",
+							"name": "Referrer-Policy",
+							"description": "Custom header"
+						},
+						{
+							"key": "Server",
+							"value": "GitHub.com",
+							"name": "Server",
+							"description": "A name for the server"
+						},
+						{
+							"key": "Status",
+							"value": "200 OK",
+							"name": "Status",
+							"description": "Custom header"
+						},
+						{
+							"key": "Strict-Transport-Security",
+							"value": "max-age=31536000; includeSubdomains; preload",
+							"name": "Strict-Transport-Security",
+							"description": "A HSTS Policy informing the HTTP client how long to cache the HTTPS only policy and whether this applies to subdomains."
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"name": "Transfer-Encoding",
+							"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+						},
+						{
+							"key": "Vary",
+							"value": "Accept",
+							"name": "Vary",
+							"description": "Tells downstream proxies how to match future request headers to decide whether the cached response can be used rather than requesting a fresh one from the origin server."
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff",
+							"name": "X-Content-Type-Options",
+							"description": "The only defined value, \"nosniff\", prevents Internet Explorer from MIME-sniffing a response away from the declared content-type"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "deny",
+							"name": "X-Frame-Options",
+							"description": "Clickjacking protection: \"deny\" - no rendering within a frame, \"sameorigin\" - no rendering if origin mismatch"
+						},
+						{
+							"key": "X-GitHub-Media-Type",
+							"value": "github.v3; format=json",
+							"name": "X-GitHub-Media-Type",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-GitHub-Request-Id",
+							"value": "E5F9:70B0:1141A6D:21BE3A5:5B73FA00",
+							"name": "X-GitHub-Request-Id",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60",
+							"name": "X-RateLimit-Limit",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "49",
+							"name": "X-RateLimit-Remaining",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-RateLimit-Reset",
+							"value": "1534327756",
+							"name": "X-RateLimit-Reset",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-Runtime-rack",
+							"value": "0.024788",
+							"name": "X-Runtime-rack",
+							"description": "Custom header"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "1; mode=block",
+							"name": "X-XSS-Protection",
+							"description": "Cross-site scripting (XSS) filter"
+						}
+					],
+					"cookie": [
+						{
+							"expires": "Fri Aug 13 2038 10:38:12 GMT+0300 (Финляндия (лето))",
+							"httpOnly": true,
+							"domain": "github.com",
+							"path": "/",
+							"secure": true,
+							"value": "no",
+							"key": "logged_in"
+						},
+						{
+							"expires": "Tue Jan 19 2038 05:14:07 GMT+0200 (Финляндия (зима))",
+							"httpOnly": true,
+							"domain": "github.com",
+							"path": "/",
+							"secure": true,
+							"value": "bERUOGkydE1kNUgrUUNyTWpVVWtsM1B4dzlFT3U2K2dHanJWY3dpaTdsNU1UcmtTM05yc3QrSG5jTnk5ZlhsQkR2cWNycGhnRlE1cENCUWlJQ2FNWHpVUmpMbXhGQlNUdks3UDRXTEtXY2JubGdDdGw5SFV6TVo0Rjk0ZkpXTjU5U1FuNDJrNUxzeDFKczV4OE1FbzVsWnNhWUw0ZXc0ZFQwL0J4QVVVbWoyeEp2VEMzbkJCQUdlRTk4TlNQUHQ1WGwyTmkybDhPQXo1MWQ5VGFIR0tMQT09LS11U3ZvT2dYZWloQ3pOZlRSOWVRL0pnPT0%3D--cc5b57556ab160a3bbd7f0d5d8678d3e48bd36c8",
+							"key": "_gh_sess"
+						}
+					],
+					"body": "{\"login\":\"6wl\",\"id\":15330,\"node_id\":\"MDQ6VXNlcjE1MzMw\",\"avatar_url\":\"https://avatars2.githubusercontent.com/u/15330?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/6wl\",\"html_url\":\"https://github.com/6wl\",\"followers_url\":\"https://api.github.com/users/6wl/followers\",\"following_url\":\"https://api.github.com/users/6wl/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/6wl/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/6wl/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/6wl/subscriptions\",\"organizations_url\":\"https://api.github.com/users/6wl/orgs\",\"repos_url\":\"https://api.github.com/users/6wl/repos\",\"events_url\":\"https://api.github.com/users/6wl/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/6wl/received_events\",\"type\":\"User\",\"site_admin\":false,\"name\":\"Gregory Loscombe\",\"company\":\"Amplience\",\"blog\":\"\",\"location\":\"London\",\"email\":null,\"hireable\":null,\"bio\":null,\"public_repos\":5,\"public_gists\":10,\"followers\":11,\"following\":26,\"created_at\":\"2008-06-27T23:29:00Z\",\"updated_at\":\"2018-06-09T19:18:37Z\"}"
+				}
+			]
+		},
+		{
+			"name": "add new tests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28951c42-03d0-4de6-ae63-f6682212b357",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							"",
+							" ",
+							"var contentTypeHeaderExists = responseHeaders.hasOwnProperty(\"Cache-Control\");",
+							"",
+							"tests[\"HEAD Has Cache-Control\"] = contentTypeHeaderExists;",
+							" ",
+							"if (contentTypeHeaderExists) {",
+							"    tests[\"Cache-Control is public, max-age=60, s-maxage=60\"] = responseHeaders[\"Cache-Control\"].has(\"public, max-age=60, s-maxage=60\");",
+							"}",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//Check fields present in response ",
+							"tests[\"Body matches login\"] = responseBody.has(\"login\");",
+							"",
+							"tests[\"Body matches ID\"] = responseBody.has(\"id\");",
+							"",
+							"tests[\"Body matches Company\"] = responseBody.has(\"company\");",
+							"",
+							"tests[\"Body matches location\"] = responseBody.has(\"location\");",
+							"",
+							"tests[\"Body matches public_repos\"] = responseBody.has(\"public_repos\");",
+							"",
+							"tests[\"Body matches public_gists\"] = responseBody.has(\"public_gists\");",
+							"",
+							"tests[\"Body matches followers\"] = responseBody.has(\"followers\");",
+							"",
+							"tests[\"Body matches following\"] = responseBody.has(\"following\");",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"// Check fields equal their values",
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"login name is: \" + data.login] = data.login === \"6wl\";",
+							"",
+							"tests[\"id is: \" + data.id] = data.id === 15330;",
+							"",
+							"tests[\"company name is: \" + data.company] = data.company === \"Amplience\";",
+							"",
+							"tests[\"location is: \" + data.location] = data.location === \"London\";",
+							"",
+							"tests[\"public_repos is: \" + data.public_repos] = data.public_repos === 5;",
+							"",
+							"tests[\"public_gists is: \" + data.public_gists] = data.public_gists === 10;",
+							"",
+							"tests[\"followers is: \" + data.followers] = data.followers === 11;",
+							"",
+							"tests[\"following is: \" + data.following] = data.following === 26;",
+							"",
+							"// Тестируем статус ответа и формат",
+							"pm.test(\"Status is ok, response is json\", function () {",
+							"    pm.response.to.be.ok; // проверка статуса",
+							"    pm.response.to.be.json; // проверка формата",
+							"});",
+							"",
+							"try {",
+							"    // сохраняем userId из json ответа в переменную окружения",
+							"    pm.environment.set(\"userId\", pm.response.json().args.userId);",
+							"} catch(e) {",
+							"    // выводим исключение в консоль",
+							"    console.log(e);",
+							"}",
+							"",
+							"pm.test(\"Status is ok, response is json\", function () {",
+							"    pm.response.to.be.ok;",
+							"    pm.response.to.be.json;",
+							"});",
 							"",
 							"",
 							"",
